@@ -1,0 +1,49 @@
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+    <cmail-header></cmail-header>
+    <main class="mdl-layout__content">
+        <div class="page-content">
+            <div class="mdl-grid">
+                <form [formGroup]="formCadastro" (ngSubmit)="handleCadastrarUsuario()">
+                    <ul *ngIf="mensagensErro" class="mdl-textfield is-invalid">
+                        <li *ngFor="let erro of mensagensErro" class="mdl-textfield__error">
+                            {{erro.message}}: {{erro.value}}
+                        </li>
+                    </ul>
+                    <cmail-form-group [campo]="formCadastro.get('nome')">
+                        <input formControlName="nome" autofocus required type="text" name="nome" cmailFormField>
+                    </cmail-form-group>
+                    <cmail-form-group [campo]="formCadastro.get('username')"
+                        [textoErro]="'Informar um nome de usuário é obrigatório'">
+                        <input formControlName="username" required type="text" name="username" cmailFormField>
+                    </cmail-form-group>
+                    <cmail-form-group [campo]="formCadastro.get('senha')"
+                        [textoErro]="'Informar uma senha é obrigatório'">
+                        <input formControlName="senha" required type="password" name="senha" cmailFormField>
+                    </cmail-form-group>
+                    <cmail-form-group [campo]="formCadastro.get('telefone')"
+                        [textoErro]="'Informar uma telefone é obrigatório'"
+                        [textoErroDois]="'O telefone deve conter 8 ou 9 números.'">
+                        <input formControlName="telefone" required type="text" name="telefone" cmailFormField>
+                    </cmail-form-group>
+                    <cmail-form-group [campo]="formCadastro.get('avatar')"
+                        [textoErro]="'Informar uma url com um avatar é obrigatório!'"
+                        [textoErroDois]="'Erro na URL informada :('">
+                        <input formControlName="avatar" type="text" name="avatar" cmailFormField>
+                        <span class="mdl-textfield__error mdl-textfield__checking"
+                            *ngIf="formCadastro.get('avatar')?.status === 'PENDING'">
+                            Validação pendente....
+                        </span>
+                        <span class="mdl-textfield__error mdl-textfield__valid"
+                            *ngIf="formCadastro.get('avatar')?.status === 'VALID'"> URL Válida :)
+                        </span>
+                    </cmail-form-group>
+                    <div class="mdl-card__actions">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+                            Cadastrar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
